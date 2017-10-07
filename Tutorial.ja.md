@@ -24,10 +24,10 @@ DLLを32ビット版で作らなければいけない関係上、32ビット版�
 
 ### 2. ライブラリをインストール
 
+このライブラリと同時にSHIORIプロトコルを取り扱う[shiori](https://github.com/Narazaka/shiori-nim)ライブラリを使うと便利です。
+
 ```
-# このライブラリ
 nimble install shioridll
-# SHIORIプロトコルを取り扱うライブラリ
 nimble install shiori
 ```
 
@@ -138,10 +138,12 @@ nim c myshiori.nim
 
 ## 補足
 
-ほとんど情報無いですがAPIドキュメントはこちらです。
+このライブラリ自体にはほとんど意味が無いですが、APIドキュメントはこちらです。
 型とかに困ったらこちらを見て下さい。
 
 **[API Document](https://narazaka.github.io/shioridll-nim/)**
+
+どちらかというと[shiori](https://github.com/Narazaka/shiori-nim)ライブラリのAPI Documentの方を良く参照することになると思います。
 
 またエディタはVisual Studio Codeに拡張機能Nimを入れるのがとりあえずおすすめです。
 ただしばらく書いていると補完が効かなくなったりする時があるので、立ち上げ直したりしてました。
