@@ -12,6 +12,8 @@ nimble install shioridll
 
 **[API Document](https://narazaka.github.io/shioridll-nim/)**
 
+[日本語チュートリアル](Tutorial.ja.md)
+
 ### How to make SHIORI.DLL
 
 write your myshiori.nim like below...
