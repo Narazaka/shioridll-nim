@@ -70,13 +70,13 @@ shioriRequestCallback = proc(requestStr: string): string =
   # requestとresponseの詳細はshioriライブラリのAPIドキュメントをご覧下さい。
   case request.id:
     of "name":
-      response.value = "nimshiori" # 栞名 (必ず返す)
+      response.value = "myshiori" # 栞名 (必ず返す)
     of "version":
       response.value = "0.0.1" # 栞バージョン (必ず返す)
     of "craftman":
-      response.value = "narazaka" # 栞作者 (必ず返す)
+      response.value = "me" # 栞作者 (必ず返す)
     of "craftmanw":
-      response.value = "奈良阪" # 栞作者日本語 (必ず返す)
+      response.value = "私" # 栞作者日本語 (必ず返す)
     of "OnBoot":
       response.value = r"\0\s[0]aaaaaa\e" # OnBootとか
     else:
