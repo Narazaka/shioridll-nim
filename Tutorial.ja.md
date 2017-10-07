@@ -33,6 +33,8 @@ nimble install shiori
 
 ## SHIORI.DLLの作り方
 
+### コードを書く
+
 myshiori.nim等の名前(shiori.nimはライブラリとかぶるので不可？)でこんな感じに書きます。
 
 ```nim
@@ -95,6 +97,8 @@ when appType != "lib":
   ])
 ```
 
+### コンパイル
+
 これが出来たら以下のように**32ビットのDLL**にコンパイルして下さい。
 64ビットにしてしまうと読み込めません。
 
@@ -109,6 +113,24 @@ nim c --app:lib -d:release --cpu:i386 -t:-m32 -l:-m32 myshiori.nim
 ```
 
 もしdllがロード失敗する場合、[shioricaller](https://github.com/Narazaka/shioricaller)等を使ってエラーを探ってみると良いかも知れません。
+
+### 簡易デバッグ
+
+テスト中、SSP等を使わずに簡易に確認したい場合は、
+
+```
+nim c --cc:vcc myshiori.nim
+```
+
+あるいは
+
+```
+nim c myshiori.nim
+```
+
+などとすると、main()に与えたリクエストでテストが出来ます。
+
+### リリース
 
 無事DLLが出来れば、ゴーストに含めて必要に応じてdescript.txtを書くなどして下さい。
 
