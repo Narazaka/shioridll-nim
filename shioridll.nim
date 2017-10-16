@@ -15,24 +15,24 @@ write your myshiori.nim like below...
   import strutils
 
   shioriLoadCallback = proc(str: string): bool =
-    return true
+    true
 
   shioriRequestCallback = proc(str: string): string =
     if str.contains("SHIORI/2"):
-      return "SHIORI/3.0 400 Bad Reuqest\nCharset: UTF-8\nSender: nimshiori\n\n"
+      "SHIORI/3.0 400 Bad Reuqest\nCharset: UTF-8\nSender: nimshiori\n\n"
     elif str.contains("ID: name"):
-      return "SHIORI/3.0 200 OK\nCharset: UTF-8\nSender: nimshiori\nValue: nimshiori\n\n"
+      "SHIORI/3.0 200 OK\nCharset: UTF-8\nSender: nimshiori\nValue: nimshiori\n\n"
     elif str.contains("ID: version"):
-      return "SHIORI/3.0 200 OK\nCharset: UTF-8\nSender: nimshiori\nValue: 0.0.1\n\n"
+      "SHIORI/3.0 200 OK\nCharset: UTF-8\nSender: nimshiori\nValue: 0.0.1\n\n"
     elif str.contains("ID: craftman"):
-      return "SHIORI/3.0 200 OK\nCharset: UTF-8\nSender: nimshiori\nValue: narazaka\n\n"
+      "SHIORI/3.0 200 OK\nCharset: UTF-8\nSender: nimshiori\nValue: narazaka\n\n"
     elif str.contains("ID: OnBoot"):
-      return "SHIORI/3.0 200 OK\nCharset: UTF-8\nSender: nimshiori\nValue: \\0\\s[0]aaaaaa\\e\n\n"
+      "SHIORI/3.0 200 OK\nCharset: UTF-8\nSender: nimshiori\nValue: \\0\\s[0]aaaaaa\\e\n\n"
     else:
-      return "SHIORI/3.0 204 No Content\nCharset: UTF-8\nSender: nimshiori\n\n"
+      "SHIORI/3.0 204 No Content\nCharset: UTF-8\nSender: nimshiori\n\n"
 
   shioriUnloadCallback = proc(): bool =
-    return true
+    true
 
   # for test
   when appType != "lib":
@@ -83,10 +83,10 @@ You can use `shiori <https://github.com/Narazaka/shiori-nim>`_ module for parsin
       else:
         response.status = Status.No_Content
 
-    return $response
+    $response
 
   shioriUnloadCallback = proc(): bool =
-    return true
+    true
 
   # for test
   when appType != "lib":
@@ -121,10 +121,10 @@ proc load(h: MemoryHandle, len: clong): bool {.cdecl,exportc,dynlib.} =
   dirpathStrPtr[len] = '\0'
   let dirpathStr = $dirpathStrPtr
   dealloc(dirpathStrPtr)
-  return shioriLoadCallback(dirpathStr)
+  shioriLoadCallback(dirpathStr)
 
 proc unload(): bool {.cdecl,exportc,dynlib.} =
-  return shioriUnloadCallback()
+  shioriUnloadCallback()
 
 proc request(h: MemoryHandle, len: ptr clong): MemoryHandle {.cdecl,exportc,dynlib.} =
   var requestStrPtr: cstring = cast[cstring](alloc(sizeof(cchar) * (len[] + 1)))
@@ -137,7 +137,7 @@ proc request(h: MemoryHandle, len: ptr clong): MemoryHandle {.cdecl,exportc,dynl
   len[] = cast[clong](responseStr.len())
   var reth = shioriAlloc(sizeof(char) * len[])
   copyMem(cast[pointer](reth), responseStr, len[])
-  return reth
+  reth
 
 # for test
 when appType != "lib":
