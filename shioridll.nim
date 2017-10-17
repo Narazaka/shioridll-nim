@@ -62,7 +62,7 @@ You can use `shiori <https://github.com/Narazaka/shiori-nim>`_ module for parsin
 
   shioriLoadCallback = proc(dirpathStr: string): bool =
     dirpath = dirpathStr
-    return true
+    true
 
   shioriRequestCallback = proc(requestStr: string): string =
     let request = parseRequest(requestStr)

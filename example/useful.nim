@@ -6,7 +6,7 @@ var dirpath: string
 
 shioriLoadCallback = proc(dirpathStr: string): bool =
   dirpath = dirpathStr
-  return true
+  true
 
 shioriRequestCallback = proc(requestStr: string): string =
   let request = parseRequest(requestStr)
@@ -27,10 +27,10 @@ shioriRequestCallback = proc(requestStr: string): string =
     else:
       response.status = Status.No_Content
 
-  return $response
+  $response
 
 shioriUnloadCallback = proc(): bool =
-  return true
+  true
 
 # for test
 when appType != "lib":
