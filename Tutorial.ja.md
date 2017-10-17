@@ -48,7 +48,7 @@ shioriLoadCallback = proc(dirpathStr: string): bool =
   # SHIORI load()
   # 各種前処理等を行って下さい
   dirpath = dirpathStr
-  return true
+  true
 
 shioriRequestCallback = proc(requestStr: string): string =
   # SHIORI request()
@@ -82,12 +82,12 @@ shioriRequestCallback = proc(requestStr: string): string =
     else:
       response.status = Status.No_Content
 
-  return $response
+  $response
 
 shioriUnloadCallback = proc(): bool =
   # SHIORI unload()
   # 各種後処理等を行って下さい
-  return true
+  true
 
 # テストの時に与えたいリクエスト
 when appType != "lib":

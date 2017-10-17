@@ -23,24 +23,24 @@ import shioridll
 import strutils
 
 shioriLoadCallback = proc(str: string): bool =
-  return true
+  true
 
 shioriRequestCallback = proc(str: string): string =
   if str.contains("SHIORI/2"):
-    return "SHIORI/3.0 400 Bad Reuqest\nCharset: UTF-8\nSender: nimshiori\n\n"
+    "SHIORI/3.0 400 Bad Reuqest\nCharset: UTF-8\nSender: nimshiori\n\n"
   elif str.contains("ID: name"):
-    return "SHIORI/3.0 200 OK\nCharset: UTF-8\nSender: nimshiori\nValue: nimshiori\n\n"
+    "SHIORI/3.0 200 OK\nCharset: UTF-8\nSender: nimshiori\nValue: nimshiori\n\n"
   elif str.contains("ID: version"):
-    return "SHIORI/3.0 200 OK\nCharset: UTF-8\nSender: nimshiori\nValue: 0.0.1\n\n"
+    "SHIORI/3.0 200 OK\nCharset: UTF-8\nSender: nimshiori\nValue: 0.0.1\n\n"
   elif str.contains("ID: craftman"):
-    return "SHIORI/3.0 200 OK\nCharset: UTF-8\nSender: nimshiori\nValue: narazaka\n\n"
+    "SHIORI/3.0 200 OK\nCharset: UTF-8\nSender: nimshiori\nValue: narazaka\n\n"
   elif str.contains("ID: OnBoot"):
-    return "SHIORI/3.0 200 OK\nCharset: UTF-8\nSender: nimshiori\nValue: \\0\\s[0]aaaaaa\\e\n\n"
+    "SHIORI/3.0 200 OK\nCharset: UTF-8\nSender: nimshiori\nValue: \\0\\s[0]aaaaaa\\e\n\n"
   else:
-    return "SHIORI/3.0 204 No Content\nCharset: UTF-8\nSender: nimshiori\n\n"
+    "SHIORI/3.0 204 No Content\nCharset: UTF-8\nSender: nimshiori\n\n"
 
 shioriUnloadCallback = proc(): bool =
-  return true
+  true
 
 # for test
 when appType != "lib":
@@ -71,7 +71,7 @@ var dirpath: string
 
 shioriLoadCallback = proc(dirpathStr: string): bool =
   dirpath = dirpathStr
-  return true
+  true
 
 shioriRequestCallback = proc(requestStr: string): string =
   let request = parseRequest(requestStr)
@@ -92,10 +92,10 @@ shioriRequestCallback = proc(requestStr: string): string =
     else:
       response.status = Status.No_Content
 
-  return $response
+  $response
 
 shioriUnloadCallback = proc(): bool =
-  return true
+  true
 
 # for test
 when appType != "lib":
