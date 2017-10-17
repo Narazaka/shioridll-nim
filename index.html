@@ -1254,24 +1254,24 @@ function main() {
 <span class="Keyword">import</span> <span class="Identifier">strutils</span>
 
 <span class="Identifier">shioriLoadCallback</span> <span class="Operator">=</span> <span class="Keyword">proc</span><span class="Punctuation">(</span><span class="Identifier">str</span><span class="Punctuation">:</span> <span class="Identifier">string</span><span class="Punctuation">)</span><span class="Punctuation">:</span> <span class="Identifier">bool</span> <span class="Operator">=</span>
-  <span class="Keyword">return</span> <span class="Identifier">true</span>
+  <span class="Identifier">true</span>
 
 <span class="Identifier">shioriRequestCallback</span> <span class="Operator">=</span> <span class="Keyword">proc</span><span class="Punctuation">(</span><span class="Identifier">str</span><span class="Punctuation">:</span> <span class="Identifier">string</span><span class="Punctuation">)</span><span class="Punctuation">:</span> <span class="Identifier">string</span> <span class="Operator">=</span>
   <span class="Keyword">if</span> <span class="Identifier">str</span><span class="Operator">.</span><span class="Identifier">contains</span><span class="Punctuation">(</span><span class="StringLit">&quot;SHIORI/2&quot;</span><span class="Punctuation">)</span><span class="Punctuation">:</span>
-    <span class="Keyword">return</span> <span class="StringLit">&quot;SHIORI/3.0 400 Bad Reuqest</span><span class="EscapeSequence">\n</span><span class="EscapeSequence">Charset: UTF-8\n</span><span class="EscapeSequence">Sender: nimshiori\n</span><span class="EscapeSequence">\n</span><span class="StringLit">&quot;</span>
+    <span class="StringLit">&quot;SHIORI/3.0 400 Bad Reuqest</span><span class="EscapeSequence">\n</span><span class="EscapeSequence">Charset: UTF-8\n</span><span class="EscapeSequence">Sender: nimshiori\n</span><span class="EscapeSequence">\n</span><span class="StringLit">&quot;</span>
   <span class="Keyword">elif</span> <span class="Identifier">str</span><span class="Operator">.</span><span class="Identifier">contains</span><span class="Punctuation">(</span><span class="StringLit">&quot;ID: name&quot;</span><span class="Punctuation">)</span><span class="Punctuation">:</span>
-    <span class="Keyword">return</span> <span class="StringLit">&quot;SHIORI/3.0 200 OK</span><span class="EscapeSequence">\n</span><span class="EscapeSequence">Charset: UTF-8\n</span><span class="EscapeSequence">Sender: nimshiori\n</span><span class="EscapeSequence">Value: nimshiori\n</span><span class="EscapeSequence">\n</span><span class="StringLit">&quot;</span>
+    <span class="StringLit">&quot;SHIORI/3.0 200 OK</span><span class="EscapeSequence">\n</span><span class="EscapeSequence">Charset: UTF-8\n</span><span class="EscapeSequence">Sender: nimshiori\n</span><span class="EscapeSequence">Value: nimshiori\n</span><span class="EscapeSequence">\n</span><span class="StringLit">&quot;</span>
   <span class="Keyword">elif</span> <span class="Identifier">str</span><span class="Operator">.</span><span class="Identifier">contains</span><span class="Punctuation">(</span><span class="StringLit">&quot;ID: version&quot;</span><span class="Punctuation">)</span><span class="Punctuation">:</span>
-    <span class="Keyword">return</span> <span class="StringLit">&quot;SHIORI/3.0 200 OK</span><span class="EscapeSequence">\n</span><span class="EscapeSequence">Charset: UTF-8\n</span><span class="EscapeSequence">Sender: nimshiori\n</span><span class="EscapeSequence">Value: 0.0.1\n</span><span class="EscapeSequence">\n</span><span class="StringLit">&quot;</span>
+    <span class="StringLit">&quot;SHIORI/3.0 200 OK</span><span class="EscapeSequence">\n</span><span class="EscapeSequence">Charset: UTF-8\n</span><span class="EscapeSequence">Sender: nimshiori\n</span><span class="EscapeSequence">Value: 0.0.1\n</span><span class="EscapeSequence">\n</span><span class="StringLit">&quot;</span>
   <span class="Keyword">elif</span> <span class="Identifier">str</span><span class="Operator">.</span><span class="Identifier">contains</span><span class="Punctuation">(</span><span class="StringLit">&quot;ID: craftman&quot;</span><span class="Punctuation">)</span><span class="Punctuation">:</span>
-    <span class="Keyword">return</span> <span class="StringLit">&quot;SHIORI/3.0 200 OK</span><span class="EscapeSequence">\n</span><span class="EscapeSequence">Charset: UTF-8\n</span><span class="EscapeSequence">Sender: nimshiori\n</span><span class="EscapeSequence">Value: narazaka\n</span><span class="EscapeSequence">\n</span><span class="StringLit">&quot;</span>
+    <span class="StringLit">&quot;SHIORI/3.0 200 OK</span><span class="EscapeSequence">\n</span><span class="EscapeSequence">Charset: UTF-8\n</span><span class="EscapeSequence">Sender: nimshiori\n</span><span class="EscapeSequence">Value: narazaka\n</span><span class="EscapeSequence">\n</span><span class="StringLit">&quot;</span>
   <span class="Keyword">elif</span> <span class="Identifier">str</span><span class="Operator">.</span><span class="Identifier">contains</span><span class="Punctuation">(</span><span class="StringLit">&quot;ID: OnBoot&quot;</span><span class="Punctuation">)</span><span class="Punctuation">:</span>
-    <span class="Keyword">return</span> <span class="StringLit">&quot;SHIORI/3.0 200 OK</span><span class="EscapeSequence">\n</span><span class="EscapeSequence">Charset: UTF-8\n</span><span class="EscapeSequence">Sender: nimshiori\n</span><span class="EscapeSequence">Value: \\</span><span class="EscapeSequence">0\\</span><span class="EscapeSequence">s[0]aaaaaa\\</span><span class="EscapeSequence">e\n</span><span class="EscapeSequence">\n</span><span class="StringLit">&quot;</span>
+    <span class="StringLit">&quot;SHIORI/3.0 200 OK</span><span class="EscapeSequence">\n</span><span class="EscapeSequence">Charset: UTF-8\n</span><span class="EscapeSequence">Sender: nimshiori\n</span><span class="EscapeSequence">Value: \\</span><span class="EscapeSequence">0\\</span><span class="EscapeSequence">s[0]aaaaaa\\</span><span class="EscapeSequence">e\n</span><span class="EscapeSequence">\n</span><span class="StringLit">&quot;</span>
   <span class="Keyword">else</span><span class="Punctuation">:</span>
-    <span class="Keyword">return</span> <span class="StringLit">&quot;SHIORI/3.0 204 No Content</span><span class="EscapeSequence">\n</span><span class="EscapeSequence">Charset: UTF-8\n</span><span class="EscapeSequence">Sender: nimshiori\n</span><span class="EscapeSequence">\n</span><span class="StringLit">&quot;</span>
+    <span class="StringLit">&quot;SHIORI/3.0 204 No Content</span><span class="EscapeSequence">\n</span><span class="EscapeSequence">Charset: UTF-8\n</span><span class="EscapeSequence">Sender: nimshiori\n</span><span class="EscapeSequence">\n</span><span class="StringLit">&quot;</span>
 
 <span class="Identifier">shioriUnloadCallback</span> <span class="Operator">=</span> <span class="Keyword">proc</span><span class="Punctuation">(</span><span class="Punctuation">)</span><span class="Punctuation">:</span> <span class="Identifier">bool</span> <span class="Operator">=</span>
-  <span class="Keyword">return</span> <span class="Identifier">true</span>
+  <span class="Identifier">true</span>
 
 <span class="Comment"># for test</span>
 <span class="Keyword">when</span> <span class="Identifier">appType</span> <span class="Operator">!=</span> <span class="StringLit">&quot;lib&quot;</span><span class="Punctuation">:</span>
@@ -1290,7 +1290,7 @@ function main() {
 
 <span class="Identifier">shioriLoadCallback</span> <span class="Operator">=</span> <span class="Keyword">proc</span><span class="Punctuation">(</span><span class="Identifier">dirpathStr</span><span class="Punctuation">:</span> <span class="Identifier">string</span><span class="Punctuation">)</span><span class="Punctuation">:</span> <span class="Identifier">bool</span> <span class="Operator">=</span>
   <span class="Identifier">dirpath</span> <span class="Operator">=</span> <span class="Identifier">dirpathStr</span>
-  <span class="Keyword">return</span> <span class="Identifier">true</span>
+  <span class="Identifier">true</span>
 
 <span class="Identifier">shioriRequestCallback</span> <span class="Operator">=</span> <span class="Keyword">proc</span><span class="Punctuation">(</span><span class="Identifier">requestStr</span><span class="Punctuation">:</span> <span class="Identifier">string</span><span class="Punctuation">)</span><span class="Punctuation">:</span> <span class="Identifier">string</span> <span class="Operator">=</span>
   <span class="Keyword">let</span> <span class="Identifier">request</span> <span class="Operator">=</span> <span class="Identifier">parseRequest</span><span class="Punctuation">(</span><span class="Identifier">requestStr</span><span class="Punctuation">)</span>
@@ -1311,10 +1311,10 @@ function main() {
     <span class="Keyword">else</span><span class="Punctuation">:</span>
       <span class="Identifier">response</span><span class="Operator">.</span><span class="Identifier">status</span> <span class="Operator">=</span> <span class="Identifier">Status</span><span class="Operator">.</span><span class="Identifier">No_Content</span>
   
-  <span class="Keyword">return</span> <span class="Operator">$</span><span class="Identifier">response</span>
+  <span class="Operator">$</span><span class="Identifier">response</span>
 
 <span class="Identifier">shioriUnloadCallback</span> <span class="Operator">=</span> <span class="Keyword">proc</span><span class="Punctuation">(</span><span class="Punctuation">)</span><span class="Punctuation">:</span> <span class="Identifier">bool</span> <span class="Operator">=</span>
-  <span class="Keyword">return</span> <span class="Identifier">true</span>
+  <span class="Identifier">true</span>
 
 <span class="Comment"># for test</span>
 <span class="Keyword">when</span> <span class="Identifier">appType</span> <span class="Operator">!=</span> <span class="StringLit">&quot;lib&quot;</span><span class="Punctuation">:</span>
@@ -1367,7 +1367,7 @@ SHIORI unload()
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small>Made with Nim. Generated: 2017-10-07 17:02:25 UTC</small>
+        <small>Made with Nim. Generated: 2017-10-17 13:36:16 UTC</small>
       </div>
     </div>
   </div>
