@@ -14,22 +14,29 @@ write your myshiori.nim like below...
   import shioridll
   import strutils
 
-  shioriLoadCallback = proc(str: string): bool =
+  shioriLoadCallback = proc(strPtr: cstring): bool =
+    dealloc(strPtr)
     true
 
-  shioriRequestCallback = proc(str: string): string =
-    if str.contains("SHIORI/2"):
-      "SHIORI/3.0 400 Bad Reuqest\nCharset: UTF-8\nSender: nimshiori\n\n"
-    elif str.contains("ID: name"):
-      "SHIORI/3.0 200 OK\nCharset: UTF-8\nSender: nimshiori\nValue: nimshiori\n\n"
-    elif str.contains("ID: version"):
-      "SHIORI/3.0 200 OK\nCharset: UTF-8\nSender: nimshiori\nValue: 0.0.1\n\n"
-    elif str.contains("ID: craftman"):
-      "SHIORI/3.0 200 OK\nCharset: UTF-8\nSender: nimshiori\nValue: narazaka\n\n"
-    elif str.contains("ID: OnBoot"):
-      "SHIORI/3.0 200 OK\nCharset: UTF-8\nSender: nimshiori\nValue: \\0\\s[0]aaaaaa\\e\n\n"
-    else:
-      "SHIORI/3.0 204 No Content\nCharset: UTF-8\nSender: nimshiori\n\n"
+  shioriRequestCallback = proc(strPtr: cstring): cstring =
+    let str = $strPtr
+    dealloc(strPtr)
+    let retStr =
+      if str.contains("SHIORI/2"):
+        "SHIORI/3.0 400 Bad Reuqest\nCharset: UTF-8\nSender: nimshiori\n\n"
+      elif str.contains("ID: name"):
+        "SHIORI/3.0 200 OK\nCharset: UTF-8\nSender: nimshiori\nValue: nimshiori\n\n"
+      elif str.contains("ID: version"):
+        "SHIORI/3.0 200 OK\nCharset: UTF-8\nSender: nimshiori\nValue: 0.0.1\n\n"
+      elif str.contains("ID: craftman"):
+        "SHIORI/3.0 200 OK\nCharset: UTF-8\nSender: nimshiori\nValue: narazaka\n\n"
+      elif str.contains("ID: OnBoot"):
+        "SHIORI/3.0 200 OK\nCharset: UTF-8\nSender: nimshiori\nValue: \\0\\s[0]aaaaaa\\e\n\n"
+      else:
+        "SHIORI/3.0 204 No Content\nCharset: UTF-8\nSender: nimshiori\n\n"
+    var retStrPtr: cstring = cast[cstring](alloc(sizeof(cchar) * (retStr.len() + 1)))
+    copyMem(retStrPtr, cstring(retStr), retStr.len() + 1)
+    retStrPtr
 
   shioriUnloadCallback = proc(): bool =
     true
@@ -48,52 +55,13 @@ then make 32bit dll...
 
 You also may be able to use gcc or some other compilers.
 
-Useful way
+for common case
 =============
 
-You can use `shiori <https://github.com/Narazaka/shiori-nim>`_ module for parsing SHIORI request and building SHIORI response as below...
+This module treats raw bytes as cstring so you must alloc/dealloc them, that is not safe operation.
 
-.. code-block:: Nim
-  import shioridll
-  import shiori
-  import tables
+You can use `shioridll-utf8 <https://github.com/Narazaka/shioridll-utf8-nim>`_ module for more safe and convenient shiori making.
 
-  var dirpath: string
-
-  shioriLoadCallback = proc(dirpathStr: string): bool =
-    dirpath = dirpathStr
-    true
-
-  shioriRequestCallback = proc(requestStr: string): string =
-    let request = parseRequest(requestStr)
-    var response = newResponse(headers = {"Charset": "UTF-8", "Sender": "nimshiori"}.newOrderedTable)
-    if request.version != "3.0":
-      response.statusCode = 400
-      return $response
-
-    case request.id:
-      of "name":
-        response.value = "nimshiori"
-      of "version":
-        response.value = "0.0.1"
-      of "craftman":
-        response.value = "narazaka"
-      of "OnBoot":
-        response.value = r"\0\s[0]aaaaaa\e"
-      else:
-        response.status = Status.No_Content
-
-    $response
-
-  shioriUnloadCallback = proc(): bool =
-    true
-
-  # for test
-  when appType != "lib":
-    main("C:\\ssp\\ghost\\nim\\", @[
-      "GET SHIORI/3.0\nCharset: UTF-8\nSender: embryo\nID: version\n\n",
-      "GET SHIORI/3.0\nCharset: UTF-8\nSender: embryo\nID: OnBoot\n\n",
-    ])
 
 ]##
 
