@@ -24,7 +24,8 @@ DLLを32ビット版で作らなければいけない関係上、32ビット版�
 
 ### 2. ライブラリをインストール
 
-このライブラリと同時にSHIORIプロトコルを取り扱う[shiori](https://github.com/Narazaka/shiori-nim)ライブラリを使うと便利です。
+このライブラリと同時にSHIORIプロトコルを取り扱う[shiori](https://github.com/Narazaka/shiori-nim)ライブラリ、
+及び文字コードを自動でUTF-8に変換してくれる[shiori_charset_convert](https://github.com/Narazaka/shiori_charset_convert-nim)ライブラリを使うと便利です。
 
 ```
 nimble install shioridll
@@ -40,6 +41,7 @@ myshiori.nim等の名前(shiori.nimはライブラリとかぶるので不可？
 ```nim
 import shioridll
 import shiori
+import shiori_charset_convert
 import tables
 
 var dirpath: string
@@ -50,7 +52,9 @@ shioriLoadCallback = proc(dirpathStr: string): bool =
   dirpath = dirpathStr
   true
 
-shioriRequestCallback = proc(requestStr: string): string =
+# autoConvertShioriMessageCharset()はベースウェアからのリクエストをUTF-8に変換してくれます。
+# またレスポンスをベースウェアに渡す前にCharsetヘッダに書かれた文字コードに変換してくれます。
+shioriRequestCallback = autoConvertShioriMessageCharset(proc(requestStr: string): string =
   # SHIORI request()
   # メインのSHIORIプロトコル通信処理部分です
 
@@ -83,6 +87,7 @@ shioriRequestCallback = proc(requestStr: string): string =
       response.status = Status.No_Content
 
   $response
+)
 
 shioriUnloadCallback = proc(): bool =
   # SHIORI unload()

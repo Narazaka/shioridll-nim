@@ -60,11 +60,14 @@ You also may be able to use gcc or some other compilers.
 
 ### Useful way
 
-You can use [shiori](https://github.com/Narazaka/shiori-nim) module for parsing SHIORI request and building SHIORI response as below...
+You can use [shiori](https://github.com/Narazaka/shiori-nim) module for parsing SHIORI request and building SHIORI response
+and can use [shiori_charset_convert](https://github.com/Narazaka/shiori_charset_convert-nim) module for auto converting charset
+as below...
 
 ```nim
 import shioridll
 import shiori
+import shiori_charset_convert
 import tables
 
 var dirpath: string
@@ -73,7 +76,7 @@ shioriLoadCallback = proc(dirpathStr: string): bool =
   dirpath = dirpathStr
   true
 
-shioriRequestCallback = proc(requestStr: string): string =
+shioriRequestCallback = autoConvertShioriMessageCharset(proc(requestStr: string): string =
   let request = parseRequest(requestStr)
   var response = newResponse(headers = {"Charset": "UTF-8", "Sender": "nimshiori"}.newOrderedTable)
   if request.version != "3.0":
@@ -93,6 +96,7 @@ shioriRequestCallback = proc(requestStr: string): string =
       response.status = Status.No_Content
 
   $response
+)
 
 shioriUnloadCallback = proc(): bool =
   true
