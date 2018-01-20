@@ -1,7 +1,7 @@
 ##[
 The SHIORI DLL interface
 
-This is released under `MIT License <https://narazaka.net/license/MIT?2018>`_.
+This is released under `MIT License <https://narazaka.net/license/MIT?2017>`_.
 
 - `Repository <https://github.com/Narazaka/shioridll-nim>`_
 
@@ -60,7 +60,7 @@ for common case
 
 This module treats raw bytes as cstring so you must alloc/dealloc them, that is not safe operation.
 
-You can use `shioridll_utf8 <https://github.com/Narazaka/shioridll_utf8-nim>`_ module for more safe and convenient shiori making.
+You can use `shioridll-utf8 <https://github.com/Narazaka/shioridll-utf8-nim>`_ module for more safe and convenient shiori making.
 
 
 ]##

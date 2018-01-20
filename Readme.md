@@ -67,7 +67,7 @@ You also may be able to use gcc or some other compilers.
 
 This module treats raw bytes as cstring so you must alloc/dealloc them, that is not safe operation.
 
-You can use [shioridll_utf8](https://github.com/Narazaka/shioridll_utf8-nim) module for more safe and convenient shiori making.
+You can use [shioridll-utf8](https://github.com/Narazaka/shioridll-utf8-nim) module for more safe and convenient shiori making.
 
 ## License
 
