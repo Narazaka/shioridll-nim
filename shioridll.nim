@@ -110,8 +110,8 @@ else:
   proc shioriAlloc(size: Natural): MemoryHandle {.inline.} = cast[ptr cchar](alloc(size))
   proc shioriFree(p: MemoryHandle): void {.inline.} = dealloc(p)
 
-var shioriLoadCallback*: proc(dirpath: string): bool ## SHIORI load()
-var shioriRequestCallback*: proc(requestStr: string): string ## SHIORI request()
+var shioriLoadCallback*: proc(dirpath: cstring): bool ## SHIORI load()
+var shioriRequestCallback*: proc(requestStr: cstring): cstring ## SHIORI request()
 var shioriUnloadCallback*: proc(): bool ## SHIORI unload()
 
 proc load(h: MemoryHandle, len: clong): bool {.cdecl,exportc,dynlib.} =
@@ -119,9 +119,7 @@ proc load(h: MemoryHandle, len: clong): bool {.cdecl,exportc,dynlib.} =
   copyMem(dirpathStrPtr, cast[cstring](h), len)
   shioriFree(h)
   dirpathStrPtr[len] = '\0'
-  let dirpathStr = $dirpathStrPtr
-  dealloc(dirpathStrPtr)
-  shioriLoadCallback(dirpathStr)
+  shioriLoadCallback(dirpathStrPtr)
 
 proc unload(): bool {.cdecl,exportc,dynlib.} =
   shioriUnloadCallback()
@@ -131,12 +129,11 @@ proc request(h: MemoryHandle, len: ptr clong): MemoryHandle {.cdecl,exportc,dynl
   copyMem(requestStrPtr, cast[cstring](h), len[])
   shioriFree(h)
   requestStrPtr[len[]] = '\0'
-  let requestStr = $requestStrPtr
-  dealloc(requestStrPtr)
-  let responseStr = cstring(shioriRequestCallback(requestStr))
-  len[] = cast[clong](responseStr.len())
+  let responseStrPtr = shioriRequestCallback(requestStrPtr)
+  len[] = cast[clong](responseStrPtr.len())
   var reth = shioriAlloc(sizeof(char) * len[])
-  copyMem(cast[pointer](reth), responseStr, len[])
+  copyMem(cast[pointer](reth), responseStrPtr, len[])
+  dealloc(responseStrPtr)
   reth
 
 # for test
