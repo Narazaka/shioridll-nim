@@ -36,6 +36,7 @@ gccでも動くようです（このライブラリとしては未検証）。mi
 ```
 nimble install shioridll
 nimble install shiori
+nimble install shiori_charset_convert
 ```
 
 ## SHIORI.DLLの作り方
