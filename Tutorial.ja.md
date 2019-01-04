@@ -28,7 +28,7 @@ gccでも動くようです（このライブラリとしては未検証）。mi
 なお作者はVisual Studio Communityを使ってなんとかしました。
 とりあえずnimとvcまたはgccが動く状態にして下さい。
 
-### 2. ライブラリをインストール
+### 3. ライブラリをインストール
 
 このライブラリと同時にSHIORIプロトコルを取り扱う[shiori](https://github.com/Narazaka/shiori-nim)ライブラリ、
 及び文字コードを自動でUTF-8に変換してくれる[shiori_charset_convert](https://github.com/Narazaka/shiori_charset_convert-nim)ライブラリを使うと便利です。
@@ -38,6 +38,14 @@ nimble install shioridll
 nimble install shiori
 nimble install shiori_charset_convert
 ```
+
+### 4. エディタをインストール（オプション）
+
+Nim言語を書くには[Visual Studio Code](https://code.visualstudio.com/)がおすすめです。
+
+インストールした後、「Nim」拡張機能をインストールしてください。
+
+シンタックスハイライトや補完が効くようになります。
 
 ## SHIORI.DLLの作り方
 
