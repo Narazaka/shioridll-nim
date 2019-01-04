@@ -10,17 +10,23 @@ SHIORI.DLLをNim言語で作るためのインターフェースです。
 
 ### 1. Nim言語をインストール
 
-Nim言語のサイト https://nim-lang.org/install.html からzipを落として展開します。
+Nim言語のサイト https://nim-lang.org/install.html からzipを落として展開し、環境変数にPATHを通します。
 
 DLLを32ビット版で作らなければいけない関係上、32ビット版のほうが混乱が少ないかも知れません。
 ただ作者の環境では64ビット版でも動きました。
 
-またgccが必要ならmingw32の方もダウンロードして展開してパス通して下さい。
-こちらは少なくともmingw64だと上手くいかないっぽいです。
+### 2. Cコンパイラーをインストール
+
+[Visual Studio Community](https://visualstudio.microsoft.com/ja/vs/community/)をインストールしてください。
+
+Communityは無料版ですが有料版を既に持っていたらそちらで大丈夫です。
+少なくともVS2017でコンパイルできることを確認していますが、2015などでもいけるのではないかと思います。
+
+gccでも動くようです（このライブラリとしては未検証）。mingw32をダウンロードして展開してパス通して下さい。mingw64だと上手くいかないっぽいです。
 
 なお作者はVisual Studio Communityのclを使ってなんとかしました。
 
-とりあえずnimとgccまたはvcが動く状態にして下さい。
+とりあえずnimとvcまたはgccが動く状態にして下さい。
 
 ### 2. ライブラリをインストール
 
@@ -107,10 +113,18 @@ when appType != "lib":
 これが出来たら以下のように**32ビットのDLL**にコンパイルして下さい。
 64ビットにしてしまうと読み込めません。
 
+#### Visual Studioの場合
+
+スタートメニューのVisual Studioの下にある「開発者コマンド プロンプト for VS 2017」あるいは「Developer Command Prompt for VS 2017」を開いてその中で作業します（2017のところは適宜読み替え下さい）。
+
+そのコマンド上でソースのある所までフォルダ移動し、以下のコマンドを叩きます。
+
 --app:libがdllを作る指定、-d:releaseがリリース版（つけないとデバッグ版）、--cc:vccがVisual Studioのclコンパイラを使う指定（つけないとgcc）、--cpu:i386が32ビット版指定です。
 ```
 nim c --app:lib -d:release --cc:vcc --cpu:i386 myshiori.nim
 ```
+
+#### GCCの場合
 
 gccの場合は-tとか-mとかもつけるらしいですが、これで試してないのでもし成功した人が居れば書き換えプルリク下さい。
 ```
