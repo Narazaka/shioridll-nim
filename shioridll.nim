@@ -140,7 +140,7 @@ proc request(h: MemoryHandle, len: ptr clong): MemoryHandle {.cdecl,exportc,dynl
   dealloc(requestStrPtr)
   let responseStr = cstring(shioriRequestCallback(requestStr))
   len[] = cast[clong](responseStr.len())
-  var reth = shioriAlloc(sizeof(char) * len[])
+  var reth = shioriAlloc(sizeof(char) * (len[] + 1))
   copyMem(cast[pointer](reth), responseStr, len[])
   reth
 
