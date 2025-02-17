@@ -14,8 +14,8 @@ jobs:
           - 1.x
           - 2.x
         os:
-        - ubuntu-latest
-        - windows-latest
+          - windows-latest
+          - ubuntu-latest
 
     runs-on: ${{ matrix.os }}
 
@@ -35,4 +35,5 @@ jobs:
       run: make basicvc
 
     - name: dll
+      if: matrix.os == 'windows-latest'
       run: make basicdll
