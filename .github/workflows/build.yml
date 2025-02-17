@@ -13,8 +13,11 @@ jobs:
           - 0.x
           - 1.x
           - 2.x
+        os:
+        - ubuntu-latest
+        - windows-latest
 
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
 
     steps:
     - uses: actions/checkout@v4
@@ -28,6 +31,7 @@ jobs:
       run: make basic
 
     - name: cl
+      if: matrix.os == 'windows-latest'
       run: make basicvc
 
     - name: dll
