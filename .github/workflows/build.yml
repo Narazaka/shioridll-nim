@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         nim:
-          - 0.x
+          - 0.17.2
           - 1.x
           - 2.x
         os:
