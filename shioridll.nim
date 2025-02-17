@@ -150,14 +150,14 @@ when appType != "lib":
     ##
     ## this will removed when --app:lib
     let dirpathStrLen = dirpathStr.len()
-    var dirpathStrPtr: cstring = cast[cstring](alloc(sizeof(cchar) * dirpathStrLen))
+    var dirpathStrPtr: cstring = cast[cstring](shioriAlloc(sizeof(cchar) * dirpathStrLen))
     copyMem(dirpathStrPtr, cstring(dirpathStr), dirpathStrLen)
     echo "--\nload(" & dirpathStr & ")"
     echo "result = " & $load(cast[MemoryHandle](dirpathStrPtr), cast[clong](dirpathStrLen))
 
     for requestStr in requestStrs:
       let requestStrLen = requestStr.len()
-      var requestStrPtr: cstring = cast[cstring](alloc(sizeof(cchar) * requestStrLen))
+      var requestStrPtr: cstring = cast[cstring](shioriAlloc(sizeof(cchar) * requestStrLen))
       copyMem(requestStrPtr, cstring(requestStr), requestStrLen)
       var len: ptr clong = cast[ptr clong](alloc(sizeof(clong)))
       len[] = cast[clong](requestStrLen)
