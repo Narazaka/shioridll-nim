@@ -102,13 +102,14 @@ as below...
 ]##
 
 when defined(windows):
-  import winlean
+  import std/winlean
   type MemoryHandle = Handle
-  proc GlobalAlloc(uFlags: cuint, dwBytes: Natural): Handle {.importc,header:"<windows.h>".}
-  proc GlobalFree(hMem: Handle): Handle {.importc,header:"<windows.h>".}
+  type RawHandle = ptr int
+  proc GlobalAlloc(uFlags: cuint, dwBytes: Natural): RawHandle {.importc,header:"<windows.h>".}
+  proc GlobalFree(hMem: RawHandle): RawHandle {.importc,header:"<windows.h>".}
   const GMEM_FIXED: cuint = 0x0
-  proc shioriAlloc(size: Natural): MemoryHandle {.inline.} = GlobalAlloc(GMEM_FIXED, size)
-  proc shioriFree(p: MemoryHandle): void {.inline.} = discard GlobalFree(p)
+  proc shioriAlloc(size: Natural): MemoryHandle {.inline.} = cast[MemoryHandle](GlobalAlloc(GMEM_FIXED, size))
+  proc shioriFree(p: MemoryHandle): void {.inline.} = discard GlobalFree(cast[RawHandle](p))
 else:
   type MemoryHandle = ptr cchar
   proc shioriAlloc(size: Natural): MemoryHandle {.inline.} = cast[ptr cchar](alloc(size))
@@ -139,7 +140,7 @@ proc request(h: MemoryHandle, len: ptr clong): MemoryHandle {.cdecl,exportc,dynl
   dealloc(requestStrPtr)
   let responseStr = cstring(shioriRequestCallback(requestStr))
   len[] = cast[clong](responseStr.len())
-  var reth = shioriAlloc(sizeof(char) * len[])
+  var reth = shioriAlloc(sizeof(char) * (len[] + 1))
   copyMem(cast[pointer](reth), responseStr, len[])
   reth
 
