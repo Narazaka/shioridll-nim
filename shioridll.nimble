@@ -1,6 +1,6 @@
 # Package
 
-version       = "3.0.0"
+version       = "3.0.1"
 author        = "Narazaka"
 description   = "The SHIORI DLL interface"
 license       = "MIT"
